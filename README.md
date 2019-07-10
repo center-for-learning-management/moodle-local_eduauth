@@ -26,9 +26,16 @@ If the user has logged in you will retrieve a JSON-encoded answer with the follo
 
 You have to store at least the userid and the token persistently to make further calls.
 
-## Retrieve data
+## Open a Moodle-Site as user
+
+Just open the system browser using the following url:
+`{$CFG->wwwroot}/local/eduauth/launch.php?userid={theuserid}&token={yourtoken}&appid={yourappid}&url={themoodleurl}`
+
+`{themoodleurl}` should be the desired URL of a page within Moodle in base64 encoded format.
+
+## Retrieve data via JSON
 ### Basic call
-Just make ajax-calls against `$CFG->wwwroot /local/eduauth/connect.php` providing the following parameters:
+Just make ajax-calls against `{$CFG->wwwroot}/local/eduauth/connect.php` providing the following parameters:
 
 ```
 {
