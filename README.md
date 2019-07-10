@@ -40,10 +40,10 @@ Just make ajax-calls against `{$CFG->wwwroot}/local/eduauth/connect.php` providi
 ```
 {
     'appid' => {yourappid},
+    'callforward' => {(optional) forward your call to another plugin}
     'token' => {yourtoken},
     'userid' => {the user id},
-    'act' => {the action},
-    {optional additional data according to act}
+    'data' => {all other parameters in a JSON-encoded string, including the parameter 'act'}
 }
 ```
 

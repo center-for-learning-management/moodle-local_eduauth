@@ -27,22 +27,36 @@ header("access-control-allow-origin: *");
 
 require_once('../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/local/edumessenger/lib.php');
-require_once($CFG->dirroot . '/local/edumessenger/geilo.php');
+require_once($CFG->dirroot . '/local/eduauth/lib.php');
+require_once($CFG->dirroot . '/local/eduauth/geilo.php');
 
 $userid = optional_param('userid', 0, PARAM_INT);
 $token = optional_param('token', '', PARAM_TEXT);
 $appid = optional_param('appid', '', PARAM_TEXT);
+$callforward = optional_param('callforward', '', PARAM_TEXT);
 
 $context = context_system::instance();
 
-$PAGE->set_url('/local/eduauth/connect.php?token=' . $token . '&appid=' . $appid . '&userid=' . $userid);
+$PAGE->set_url('/local/eduauth/connect.php?token=' . $token . '&appid=' . $appid . '&callforward=' . $callforward . '&userid=' . $userid);
 $PAGE->set_context($context);
 $strdata = optional_param('data', '', PARAM_RAW);
 
 if (local_eduauth_lib::check_token($userid, $token, $appid)) {
     $data = json_decode($strdata);
-    $reply = local_eduauth_geilo::act($data);
+    if (!empty($callforward)) {
+        $reply = (object) array();
+        $p = explode('_', $callforward);
+        if (file_exists($CFG->dirroot . '/' . $p[0] . '/' . $p[1] . '/eduauth.php')) {
+            require_once($CFG->dirroot . '/' . $p[0] . '/' . $p[1] . '/eduauth.php');
+            $cname = $p[0] . '_' . $p[1] . '_eduauth';
+            $reply->calling = $cname;
+            //$cname::callforward($data, $reply);
+        } else {
+            $reply->error = 'invalid plugin specified';
+        }
+    } else {
+        $reply = local_eduauth_geilo::act($data);
+    }
 } else {
     $reply = (object) array(
         'appid' => $appid,

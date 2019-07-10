@@ -37,13 +37,13 @@ $act = optional_param('act', 'login', PARAM_TEXT);
 
 $context = context_system::instance();
 
-$PAGE->set_url('/local/eduauth/login.php?token=' . $edmtoken . '&appid=' . $appid . '&act=' . $act);
+$PAGE->set_url('/local/eduauth/login.php?token=' . $token . '&appid=' . $appid . '&act=' . $act);
 $PAGE->set_context($context);
 
 switch ($act) {
     case 'getuser':
         $o = array();
-        $chk = $DB->get_record('local_eduauth', array('token' => $edmtoken, 'appid' => $appid, 'redeemed' => 0));
+        $chk = $DB->get_record('local_eduauth', array('token' => $token, 'appid' => $appid, 'redeemed' => 0));
         if (!empty($chk->userid)) {
             $user = $DB->get_record('user', array('id' => $chk->userid));
             // We can reveal the edmtoken.

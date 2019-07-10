@@ -56,8 +56,9 @@ class local_eduauth_lib {
                     array(
                         'appid' => $appid,
                         'userid' => $userid,
-                        'token' => $token,)
-                    );
+                        'token' => $token,
+                    )
+                );
         if (!empty($entry->userid) && $entry->userid == $userid) {
             self::verified_userid($userid);
             $entry->used = time();
