@@ -84,7 +84,7 @@ switch ($act) {
             $o = $DB->get_record('local_eduauth', array('userid' => $USER->id, 'token' => $token, 'appid' => $appid));
             if (empty($o->userid)) {
                 $o = array('userid' => $USER->id, 'token' => $token, 'appid' => $appid, 'redeemed' => 0, 'created' => time());
-                $DB->insert_record('local_eduauth', (object)$o);
+                $id = $DB->insert_record('local_eduauth', $o, true);
             }
             echo $OUTPUT->header();
             $params = array(

@@ -46,6 +46,7 @@ class local_eduauth_geilo {
                     'userid' => $USER->id,
                     'username' => $USER->username,
                 );
+            break;
             case 'removeMe':
                 // Removes the token(s) of that user from database.
                 $params = array('userid' => $USER->id);
