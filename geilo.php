@@ -35,6 +35,16 @@ class local_eduauth_geilo {
             return $reply;
         }
         switch ($data->act) {
+            case 'callForward':
+                $p = explode('_', $data->callforward);
+                if (file_exists($CFG->dirroot . '/' . $p[0] . '/' . $p[1] . '/eduauth.php')) {
+                    require_once($CFG->dirroot . '/' . $p[0] . '/' . $p[1] . '/eduauth.php');
+                    $cname = $p[0] . '_' . $p[1] . '_eduauth';
+                    $cname::callforward($data, $reply);
+                } else {
+                    $reply->error = 'invalid plugin specified';
+                }
+            break;
             case 'myData':
                 // Returns personal data about the user to the app.
                 $context = context_user::instance($USER->id);
