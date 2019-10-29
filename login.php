@@ -30,7 +30,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once('../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-
+sesskey();
 $token = required_param('token', PARAM_TEXT);
 $appid = required_param('appid', PARAM_TEXT);
 $act = optional_param('act', 'login', PARAM_TEXT);
