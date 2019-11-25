@@ -40,6 +40,20 @@ $context = context_system::instance();
 $PAGE->set_url('/local/eduauth/login.php?token=' . $token . '&appid=' . $appid . '&act=' . $act);
 $PAGE->set_context($context);
 
+$chk = explode(".", $appid);
+if (count($chk) < 3) {
+    // Invalid appid.
+    $PAGE->set_pagelayout('popup');
+    echo $OUTPUT->header();
+    $params = array(
+        'content' => get_string('appid:invalid', 'local_eduauth'),
+        'type' => 'danger',
+    );
+    echo $OUTPUT->render_from_template('local_eduauth/alert', $params);
+    echo $OUTPUT->footer();
+    exit;
+}
+
 switch ($act) {
     case 'getuser':
         $o = array();

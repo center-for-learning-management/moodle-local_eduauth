@@ -23,6 +23,8 @@
 
 $string['pluginname'] = 'eduAuth';
 
+$string['appid:invalid'] = 'Invalid App-ID given.';
+
 $string['incompatible_moodle_version'] = 'Your moodle version is incompatible for this function';
 
 $string['login:required_login'] = 'Redirect you to login.';
